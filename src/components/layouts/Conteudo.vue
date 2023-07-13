@@ -1,9 +1,5 @@
 <template>
     <div>
-        <h1>Conteudo</h1>
-        <!--Renderizar de modo dinâmico, home e publicar vaga-->
-        <button @click="conteudo = 'home'" >Home</button>
-        <button @click="conteudo = 'publicar-vaga'" >Publicar Vaga</button>
         <keep-alive>
             <component :is="conteudo"/>
         </keep-alive>
@@ -16,13 +12,16 @@
     
     export default {
         name: 'Conteudo',
+        props: {
+            conteudo: {
+                type: String,
+                required: true,
+            }
+        },
         components: {
             Home,
             PublicarVaga,
         },
-        data: () => ({
-            conteudo: 'home',
-        }),
     }
 </script>
 
