@@ -6,7 +6,7 @@
                     <div>{{titulo}}</div>
                     <div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" v-model="favoritada">
                             <label class="form-check-label">Favoritar</label>
                         </div>
                     </div>
@@ -28,6 +28,14 @@
         // props: ['titulo', 'descricao', 'salario', 'modalidade', 'tipo', 'publicacao']
         /*Ao invés de usar um array na propriedade props é possível utilizar tbm um objeto., a chave é o nome
         do atributo, e o valor seria o tipo*/
+        data: () => ({
+            favoritada: false
+        }),
+        watch: {
+            favoritada(valorNovo) {
+                this.emitter.emit(valorNovo? 'favoritarVaga':'desfavoritarVaga', this.titulo);
+            }
+        },
         props: {
             titulo: String,
             descricao: String,
