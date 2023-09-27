@@ -90,7 +90,40 @@
                     publicacao: dataFormatada.toISOString()
                 });
                 
-                localStorage.setItem('vagas', JSON.stringify(vagas))
+                
+                if (this.validaFormulario()){
+                    localStorage.setItem('vagas', JSON.stringify(vagas))
+                    this.emitter.emit('alerta', {
+                        tipo: 'sucesso',
+                        titulo: `A vaga ${this.titulo} foi cadastrada com sucesso!`,
+                        descricao: `parabéns a vaga foi cadastrada e podera ser consultada por milhares de profissionais na nossa plataforma`
+                    });
+                    this.resetaFormulario();
+                } else {
+                    this.emitter.emit('alerta', {
+                        tipo: 'erro',
+                        titulo: `Ops, não foi possível realiazar o cadastro!`,
+                        descricao: `certifique-se de que preencheu tudo corretamente e tente novamente`
+                    });
+                }
+            },
+            resetaFormulario() {
+                this.titulo = '';
+                this.descricao = '';
+                this.salario = '';
+                this.modalidade = '';
+                this.tipo = '';
+            },
+            validaFormulario() {
+                let valido = true
+
+                if (this.titulo === '') valido = false;
+                if (this.descricao === '') valido = false;
+                if (this.salario === '') valido = false;
+                if (this.modalidade === '') valido = false;
+                if (this.tipo === '') valido = false;
+
+                return valido;
             }
         }
     }

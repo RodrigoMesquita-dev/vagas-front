@@ -5,12 +5,36 @@
                 <pesquisar-vaga/>                
             </div>
         </div>
-
-        <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
-            <div class="col">
-                <vaga v-bind="vaga" />
+        
+        <lista-vagas></lista-vagas>
+            
+        <!--
+            <lista-vagas>
+                <template v-slot:titulo="slotProps">
+                    {{ slotProps }}
+                </template>
+    
+                <template v-slot:default="slotProps">
+                    {{ slotProps }}
+                </template>
+    
+                <template v-slot:rodape="slotProps">
+                    {{ slotProps }}
+                </template>
+            </lista-vagas>
+            <lista-vagas v-slot:default="slotProps">
+                <div class="row mt-5" v-for="(vaga, index) in slotProps.vagas" :key="index">
+                    <h4>{{ vaga.titulo }}</h4>
+                    <p> {{ vaga.descricao }} </p>
+                    <hr>
+                </div>
+            </lista-vagas>
+            <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
+                <div class="col">
+                    <vaga v-bind="vaga" />
+                </div>
             </div>
-        </div>
+        -->
 
         <div class="row mt-5">
             <div class="col-4">
@@ -29,8 +53,8 @@
 </template>
 
 <script>
-    import Vaga from '../commons/Vaga.vue';
     import Indicador from '../commons/Indicador.vue';
+    import ListaVagas from '../commons/ListaVagas.vue';
     import PesquisarVaga from '../commons/PesquisarVaga.vue';
 
     export default {
@@ -38,7 +62,7 @@
         components: {
             PesquisarVaga,
             Indicador,
-            Vaga,
+            ListaVagas,
         },
         data () {
             return {
@@ -50,12 +74,9 @@
             getUsuariosOnline() {
                 this.usuariosOnline = Math.floor(Math.random() * 101);
             }
-        },        
+        },
         created() {
             setInterval(this.getUsuariosOnline, 5000); // a cada 5 segundo
-        },
-        activated() {
-            this.vagas = JSON.parse(localStorage.getItem('vagas'));
         }
     }
 </script>
